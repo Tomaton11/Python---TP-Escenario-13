@@ -15,13 +15,48 @@ lista_espera = []
 # =========================
 
 def menu():
-    # Mostrar las opciones del sistema
-    pass
+    # Esta función solo se encarga de mostrar por consola las opciones del sistema
+    # No recibe parámetros ni devuelve nada, solo imprime texto
+    print("\n=======================================")
+    print("  SISTEMA DE INSCRIPCIÓN A CURSOS - UTN")
+    print("=======================================")
+    print("1. Registrar Estudiante")
+    print("2. Mostrar Estudiantes Registrados")
+    print("3. Mostrar Cursos y Cupos")
+    print("4. Inscribir Estudiante a un Curso")
+    print("5. Mostrar Lista de Espera")
+    print("6. Mostrar Estadísticas del Sistema")
+    print("7. Salir")
 
 
 def mostrar_cursos():
-    # Mostrar cursos, cupos totales, inscriptos y cupos disponibles
-    pass
+    # Esta función recorre la lista global 'cursos' y muestra el estado de cada uno
+
+    # VALIDACIÓN: si la lista de cursos está vacía, avisamos y cortamos la función con 'return'
+    if not cursos:
+        print("\nNo hay cursos cargados.")
+        return
+
+    print("\n--- ESTADO DE LOS CURSOS ---")
+
+    # BUCLE: usamos 'enumerate' para obtener el índice (i) junto con los datos de cada curso
+    for i, curso in enumerate(cursos):
+        nombre = curso[0]          # Posición 0 de la lista: nombre del curso
+        cupo_max = curso[1]        # Posición 1 de la lista: cupo máximo permitido
+        cant_inscriptos = len(curso[2])  # Posición 2: lista de DNIs inscriptos; contamos cuántos hay con len()
+
+        # CÁLCULO: cupos disponibles = cupo máximo menos los que ya están inscriptos
+        disponibles = cupo_max - cant_inscriptos
+
+        # CONDICIONAL: si no quedan cupos disponibles (0 o menos), mostramos un aviso especial
+        if disponibles <= 0:
+            estado = "¡SIN CUPO!"
+        else:
+            estado = f"{disponibles} disponibles"
+
+        # IMPRESIÓN: mostramos toda la información del curso en una sola línea, bien formateada
+        # i + 1 es para que el usuario vea "Curso 1, 2, 3..." en vez de empezar desde 0
+        print(f"[{i + 1}] {nombre} | Cupo Máx: {cupo_max} | Inscriptos: {cant_inscriptos} | {estado}")
 
 
 # =========================
