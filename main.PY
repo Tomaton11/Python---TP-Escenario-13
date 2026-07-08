@@ -113,18 +113,79 @@ def mostrar_estudiantes():
 # =========================
 
 def inscribir_estudiante():
-    # Mostrar estudiantes
-    # Elegir estudiante
-    # Mostrar cursos
-    # Elegir curso
-    # Si hay cupo, inscribir
-    # Si no hay cupo, agregar a lista de espera
-    pass
+    # Validar que existan estudiantes registrados antes de continuar
+    if not estudiantes:
+        print("\nNo hay estudiantes registrados en el sistema.")
+        return
+
+    # 1: Mostrar estudiantes y elegir uno
+    print("\n--- Estudiantes Registrados ---")
+    for i, estudiante in enumerate(estudiantes):
+        # Asumiendo que el estudiante se guardó como una lista [nombre, dni] o un string
+        print(f"{i + 1}. {estudiante}")
+    
+    try:
+        opcion_est = int(input("Elija el número del estudiante a inscribir: ")) - 1
+        if opcion_est < 0 or opcion_est >= len(estudiantes):
+            print("Número de estudiante inválido.")
+            return
+        estudiante_elegido = estudiantes[opcion_est]
+    except ValueError:
+        print("Error: Debe ingresar un número válido.")
+        return
+
+    # 2: Mostrar cursos y elegir uno
+    print("\n--- Cursos Disponibles ---")
+    for i, curso in enumerate(cursos):
+        nombre_curso = curso[0]
+        cupo_maximo = curso[1]
+        inscriptos_actuales = len(curso[2])
+        print(f"{i + 1}. {nombre_curso} (Inscriptos: {inscriptos_actuales}/{cupo_maximo})")
+
+    try:
+        opcion_curso = int(input("Elija el número del curso: ")) - 1
+        if opcion_curso < 0 or opcion_curso >= len(cursos):
+            print("Número de curso inválido.")
+            return
+        curso_elegido = cursos[opcion_curso]
+    except ValueError:
+        print("Error: Debe ingresar un número válido.")
+        return
+
+    # 3: Lógica de inscripción y control de cupos
+    nombre_curso = curso_elegido[0]
+    cupo_maximo = curso_elegido[1]
+    lista_inscriptos = curso_elegido[2]
+
+    # Validar si el estudiante ya está inscripto para evitar duplicados
+    if estudiante_elegido in lista_inscriptos:
+        print(f"\nEl estudiante ya se encuentra inscripto en {nombre_curso}.")
+        return
+
+    # Si hay cupo, inscribir (agregar a la sublista de inscriptos del curso)
+    if len(lista_inscriptos) < cupo_maximo:
+        lista_inscriptos.append(estudiante_elegido)
+        print(f"\n¡Éxito! Estudiante inscripto correctamente en '{nombre_curso}'.")
+    else:
+        # Si no hay cupo, agregar a lista de espera
+        # Estructura: [estudiante, nombre_del_curso]
+        lista_espera.append([estudiante_elegido, nombre_curso])
+        print(f"\nEl curso '{nombre_curso}' no tiene cupos disponibles.")
+        print("El estudiante fue agregado a la lista de espera.")
 
 
 def mostrar_lista_espera():
-    # Mostrar estudiantes en lista de espera
-    pass
+    print("\n--- Lista de Espera ---")
+    
+    if not lista_espera:
+        print("Actualmente no hay nadie en la lista de espera.")
+        return
+
+    # Mostrar estudiantes iterando sobre la lista de espera
+    for i, registro in enumerate(lista_espera):
+        estudiante = registro[0]
+        curso_deseado = registro[1]
+        print(f"{i + 1}. Curso: {curso_deseado} | Estudiante: {estudiante}")
 
 
 # =========================
