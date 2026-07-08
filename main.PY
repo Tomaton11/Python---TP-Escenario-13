@@ -193,11 +193,53 @@ def mostrar_lista_espera():
 # =========================
 
 def mostrar_estadisticas():
-    # Mostrar total de estudiantes
-    # Mostrar inscriptos por curso
-    # Mostrar cupos restantes
-    # Mostrar curso con mayor demanda
-    pass
+    # 1. Total de estudiantes registrados en el sistema
+    total_estudiantes = len(estudiantes)
+    print("\n" + "="*45)
+    print("      ESTADÍSTICAS GENERALES DEL SISTEMA")
+    print("="*45)
+    print(f"Total de estudiantes registrados: {total_estudiantes}")
+    print("-"*45)
+
+    # Validar si existen cursos cargados antes de operar
+    if not cursos:
+        print("No hay cursos registrados para calcular estadísticas.")
+        print("="*45)
+        return
+
+    # Inicializar variables para encontrar el curso con mayor demanda
+    # (Contadores y acumuladores requeridos por la cátedra)
+    nombre_mayor_demanda = ""
+    max_inscriptos = -1
+
+    print("Inscripciones y cupos por curso:")
+
+    # Recorrer la matriz de cursos
+    for curso in cursos:
+        nombre_curso = curso[0]
+        cupo_maximo = curso[1]
+        cantidad_inscriptos = len(curso[2]) # Longitud de la lista de alumnos inscritos
+
+        # Calcular los cupos restantes
+        cupos_restantes = cupo_maximo - cantidad_inscriptos
+
+        print(f" * Curso: {nombre_curso}")
+        print(f"   - Inscriptos: {cantidad_inscriptos}")
+        print(f"   - Cupos restantes: {cupos_restantes}")
+        print("-"*45)
+
+        # Lógica para determinar el curso con mayor demanda
+        if cantidad_inscriptos > max_inscriptos:
+            max_inscriptos = cantidad_inscriptos
+            nombre_mayor_demanda = nombre_curso
+
+    # Mostrar el curso con mayor demanda basándose en los resultados
+    if max_inscriptos > 0:
+        print(f"Curso con mayor demanda: {nombre_mayor_demanda} ({max_inscriptos} inscriptos)")
+    else:
+        print("Curso con mayor demanda: Aún no hay estudiantes inscritos en ningún curso.")
+
+    print("="*45)
 
 
 # =========================
