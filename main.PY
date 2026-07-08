@@ -29,16 +29,48 @@ def mostrar_cursos():
 # =========================
 
 def registrar_estudiante():
-    # Pedir nombre y DNI
-    # Validar que no estén vacíos
-    # Validar que el DNI no esté repetido
-    # Guardar estudiante en estudiantes
-    pass
+    # Título de la sección
+    print("\n===== REGISTRAR ESTUDIANTE =====")
+
+    # Solicita los datos del estudiante
+    nombre = input("Ingrese el nombre: ")
+    dni = input("Ingrese el DNI: ")
+
+    # Verifica que los datos no estén vacíos
+    if nombre == "" or dni == "":
+        print("Error. No puede dejar campos vacíos.")
+        return
+
+    # Recorre la lista para verificar que el DNI no exista
+    for estudiante in estudiantes:
+        if estudiante[1] == dni:
+            print("Ese DNI ya está registrado.")
+            return
+
+    # Agrega el estudiante a la lista
+    estudiantes.append([nombre, dni])
+
+    # Mensaje de confirmación
+    print("Estudiante registrado correctamente.")
 
 
 def mostrar_estudiantes():
-    # Mostrar estudiantes registrados
-    pass
+    # Título de la sección
+    print("\n===== ESTUDIANTES REGISTRADOS =====")
+
+    # Verifica si existen estudiantes registrados
+    if len(estudiantes) == 0:
+        print("No hay estudiantes registrados.")
+    else:
+        # Recorre la lista y muestra todos los estudiantes
+        for i in range(len(estudiantes)):
+            print(
+                i + 1,
+                "-",
+                estudiantes[i][0],
+                "- DNI:",
+                estudiantes[i][1]
+            )
 
 
 # =========================
