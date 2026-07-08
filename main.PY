@@ -10,10 +10,7 @@ cursos = [
 lista_espera = []
 
 
-# =========================
-# PERSONA 1
-# =========================
-
+# Carlos Aramberry
 def menu():
     # Esta función solo se encarga de mostrar por consola las opciones del sistema
     # No recibe parámetros ni devuelve nada, solo imprime texto
@@ -59,10 +56,7 @@ def mostrar_cursos():
         print(f"[{i + 1}] {nombre} | Cupo Máx: {cupo_max} | Inscriptos: {cant_inscriptos} | {estado}")
 
 
-# =========================
-# PERSONA 2
-# =========================
-
+# Tomás Garcilazo
 def registrar_estudiante():
     # Título de la sección
     print("\n===== REGISTRAR ESTUDIANTE =====")
@@ -108,10 +102,7 @@ def mostrar_estudiantes():
             )
 
 
-# =========================
-# PERSONA 3
-# =========================
-
+# Carlos González
 def inscribir_estudiante():
     # Validar que existan estudiantes registrados antes de continuar
     if not estudiantes:
@@ -122,7 +113,7 @@ def inscribir_estudiante():
     print("\n--- Estudiantes Registrados ---")
     for i, estudiante in enumerate(estudiantes):
         # Asumiendo que el estudiante se guardó como una lista [nombre, dni] o un string
-        print(f"{i + 1}. {estudiante}")
+        print(f"{i + 1}. {estudiante[0]} - DNI: {estudiante[1]}")
     
     try:
         opcion_est = int(input("Elija el número del estudiante a inscribir: ")) - 1
@@ -185,13 +176,10 @@ def mostrar_lista_espera():
     for i, registro in enumerate(lista_espera):
         estudiante = registro[0]
         curso_deseado = registro[1]
-        print(f"{i + 1}. Curso: {curso_deseado} | Estudiante: {estudiante}")
+        print(f"{i + 1}. Curso: {curso_deseado} | Estudiante: {estudiante[0]} - DNI: {estudiante[1]}")
 
 
-# =========================
-# PERSONA 4
-# =========================
-
+# Martin Alarcon
 def mostrar_estadisticas():
     # 1. Total de estudiantes registrados en el sistema
     total_estudiantes = len(estudiantes)
@@ -276,7 +264,10 @@ while opcion != 7:
         mostrar_estadisticas()
 
     elif opcion == 7:
-        print("Fin del programa.")
+        print("\n=======================================")
+        print("Gracias por utilizar el sistema.")
+        print("Hasta luego.")
+        print("=======================================")
 
     else:
         print("Opción inválida.")
